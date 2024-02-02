@@ -27,3 +27,12 @@ Let's say there are three different people working in a team, and each one of th
 Diagrammatic representation:
 
 ![Docker application in company projects](./Docker-usecase-in-company-projects.PNG)
+
+We can explore the pre-existing docker images from Dockerhub, like those of Node, Ubuntu, Python etc
+
+Let's execute `docker pull node`. This command is going to pull the Docker image from Dockerhub.
+
+`Docker pull` command output:
+
+[Docker-pull-command](./Docker-pull-command.PNG)
+
