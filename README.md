@@ -30,7 +30,7 @@ Diagrammatic representation:
 
 We can explore the pre-existing docker images from Dockerhub, like those of Node, Ubuntu, Python etc
 
-Let's execute `docker pull node`. This command is going to pull the Docker image from Dockerhub.
+Let's execute `docker pull node`. This command is going to pull the Docker image from Dockerhub (similar to how we pull a branch from Github)
 
 `Docker pull` command output:
 
@@ -40,7 +40,7 @@ Friendly advice: If there are lots of images on the system, periodically clear t
 
 In order to execute the image in the container, we use `docker run <image name>`. 
 
-We'll also use two options: `-it` in order to start the container in interactive mode (which allows the user on the host OS to interact with the container)
+We'll also use two options: `-it` in order to start the container in interactive mode (which allows the user on the host OS to interact with the container). If this flag is not used, the container will start and exit, because it doesn't have any command to execute. By using the interactive mode, we are asking the container to wait for the user input.
 
 `--rm` option helps delete the container after it exits. This helps us to save space on the disk.
 
@@ -56,5 +56,12 @@ How Docker Desktop shows the running containers:
 
 How to list the running docker containers: Use `docker ps` (Similar to how `ps` in Ubuntu shows all the running processes in the OS), see example below:
 
-
 ![Docker-PS-command](./Docker-PS-command.png)
+
+Docker PS lists the container ID, image which the container is running, a unique name of the container, creation time of the container etc.
+
+In order to kill the container, we use `docker kill <container ID>`. Here's the demonstration of the same:
+
+![Docker kill command](./Docker-kill-command.png)
+
+
