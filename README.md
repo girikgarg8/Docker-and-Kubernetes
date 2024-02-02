@@ -36,3 +36,25 @@ Let's execute `docker pull node`. This command is going to pull the Docker image
 
 ![Docker-pull-command](./Docker-pull-command.PNG)
 
+Friendly advice: If there are lots of images on the system, periodically clear them because they take up a lot of space.
+
+In order to execute the image in the container, we use `docker run <image name>`. 
+
+We'll also use two options: `-it` in order to start the container in interactive mode (which allows the user on the host OS to interact with the container)
+
+`--rm` option helps delete the container after it exits. This helps us to save space on the disk.
+
+As an example,
+
+Output of running `docker run --it --rm node` :
+
+![Docker-run-command](./Docker-run-command.png)
+
+How Docker Desktop shows the running containers:
+
+![Docker-Desktop-running-containers](./Docker-Desktop-showing-running-containers.png)
+
+How to list the running docker containers: Use `docker ps` (Similar to how `ps` in Ubuntu shows all the running processes in the OS), see example below:
+
+
+![Docker-PS-command](./Docker-PS-command.png)
