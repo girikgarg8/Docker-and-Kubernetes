@@ -34,5 +34,5 @@ Let's execute `docker pull node`. This command is going to pull the Docker image
 
 `Docker pull` command output:
 
-[Docker-pull-command](./Docker-pull-command.PNG)
+![Docker-pull-command](./Docker-pull-command.PNG)
 
