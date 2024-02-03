@@ -163,3 +163,7 @@ So, in order to solve these problems, we have the following solutions:
 2. In order to solve the second problem listed above, we will use the `init` option. This option allows the docker container to receive commands from the host OS. See example below:
 
 ![Docker-init](./Docker-init.png)
+
+**Let's now try to dockerize a project from Github and setup the environment variables**
+
+For the purpose of this demonstration, I will be cloning this repository [Github Link](https://github.com/girikgarg8/Dockerizing-Node-Project) in my Docker container.
