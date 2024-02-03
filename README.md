@@ -162,4 +162,4 @@ So, in order to solve these problems, we have the following solutions:
 
 2. In order to solve the second problem listed above, we will use the `init` option. This option allows the docker container to receive commands from the host OS. See example below:
 
-![Docker-init-command](./Docker-init-command.png)
+![Docker-init](./Docker-init.png)
