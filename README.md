@@ -138,7 +138,18 @@ RUN npm ci
 CMD ["node","index.js"]
 ```
 
-In this DockerFile, we are specifying the work directory as `/developer/nodejs/my-server` inside the docker container, if this directory doesn't exist, docker will create this directory inside the container. We are copying all the contents from present working directory in host machine to the `my-server` directory in the container. We are then specifying the command to do a `clean install` using npm (Clean install doesn't use node modules cache, compared to the `npm install`). Thereafter we are running `node index.js` in order to start the server. 
+In this DockerFile, we are specifying the work directory as `/developer/nodejs/my-server` inside the docker container, if this directory doesn't exist, docker will create this directory inside the container. We are copying all the contents from present working directory in host machine to the `my-server` directory in the container. We are then specifying the command to do a `clean install` using npm (Clean install doesn't use node modules cache, compared to the `npm install`). Thereafter we are running `node index.js` in order to start the server.
 
 Let's now build this docker image and see the results:
 
+![Docker-build-express-server-image](./Docker-build-express-server-image.png)
+
+![Docker-express-server-container-running](./Docker-express-server-container-running.png)
+
+![Docker-express-server-curl](./Docker-express-server-curl.png)
+
+There are some problems that we still need to solve: 
+
+1. The express server has started only inside the Docker container, and no port is exposed to the host OS. So, the host OS won't be able to send request to the express server.
+
+2. The host OS won't be able to interact in any way with the container. As an example, if we try to kill the server from the host OS, we wouldn't be able to do that. 
