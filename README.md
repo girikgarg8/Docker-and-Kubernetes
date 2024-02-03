@@ -170,3 +170,4 @@ For the purpose of this demonstration, we will be cloning this repository [Githu
 
 This is the output of building the Docker image from the Dockerfile and running the Docker container:
 
+![Dockerize-project-from-Github](./Dockerize-project-from-github.png)
