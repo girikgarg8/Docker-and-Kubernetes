@@ -121,3 +121,21 @@ We can also specify a custom name to the image after building from the container
 ![Docker-build-with-custom-image-name](./Docker-build-with-custom-image-name.png)
 
 ![Docker-list-of-all-images](./Docker-list-of-all-images.png)
+
+**Let's now try to create a local project and dockerize it**
+
+We'll be creating a node server application and running it on Docker container. 
+
+```
+FROM node
+
+WORKDIR /developer/nodejs
+
+COPY . my-server/
+
+RUN npm ci
+
+CMD ["node","index.js"]
+```
+
+In this DockerFile, we are specifying the work directory as `/developer/nodejs` inside the docker container, if this directory doesn't exist, docker will create this directory inside the container. We are copying all the contents from present working directory in host machine to my-server directory inside the WORK directory (so the complete path where the contents would be copied is `/developer/nodejs/myserver`). We are then specifying the command to do a `clean install` using npm (Clean install doesn't use node modules cache, compared to the `npm install`). Thereafter we are running `node index.js` in order to start the server. 
