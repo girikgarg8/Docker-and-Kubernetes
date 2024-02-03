@@ -153,3 +153,13 @@ There are some problems that we still need to solve:
 1. The express server has started only inside the Docker container, and no port is exposed to the host OS. So, the host OS won't be able to send request to the express server.
 
 2. The host OS won't be able to interact in any way with the container. As an example, if we try to kill the server from the host OS, we wouldn't be able to do that. 
+
+So, in order to solve these problems, we have the following solutions:
+
+1. In order to solve the first problem listed above, we will expose a port from the container to the host OS using the `publish` or the `p` option. See example below:
+
+![Docker-publish-option](./Docker-publish-option.png)
+
+2. In order to solve the second problem listed above, we will use the `init` option. This option allows the docker container to receive commands from the host OS. See example below:
+
+![Docker-init-command](./Docker-init-command.png)
