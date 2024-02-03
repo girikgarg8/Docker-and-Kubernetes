@@ -94,3 +94,30 @@ A container can be paused and unpaused in Docker, see example below:
 
 ![Docker-pause-and-unpause](./Docker-pause-and-unpause.png)
 
+Let's talk about the `docker exec` command. This command is used to execute a command inside the docker container. The syntax for this command is `docker exec <container ID> <command>.` See the example below:
+
+![Docker-exec-command](./Docker-exec-command.png)
+
+Q. What's the difference between `docker run <command>` and `docker exec <command>` ? 
+
+A. `Docker run <command>` spins up a new container and executes the command. Whereas `docker exec <command>` is used to execute the command on an already existing container. 
+
+Let's learn how to create a new Docker image using a Dockerfile. 
+
+Consider the Dockerfile below:
+
+```
+FROM node
+
+CMD ["node","-e","console.log(100)"]
+```
+
+Here, we are specifying node as the base image and the node command to print 100. Here's how to build the image :
+
+![Docker-build](./Docker-Build.png)
+
+We can also specify a custom name to the image after building from the container, using the `-t` flag. Here's how:
+
+![Docker-build-with-custom-image-name](./Docker-build-with-custom-image-name.png)
+
+![Docker-list-of-all-images](./Docker-list-of-all-images.png)
