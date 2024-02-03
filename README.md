@@ -79,3 +79,18 @@ If we want to run a docker image in the background as a daemon process, we can u
 We can give a custom name to the container (instead of using the default one, which is assigned by Docker), by using the `--name` flag. As an example:
 
 ![Docker name flag](./Docker-name-flag.png)
+
+If we are using any image (like that of node or python, as an example), it must be running on same base image (like Ubuntu). So, we can use the bash shell anytime while running a container with these images.
+
+![Docker-bash-command](./Docker-bash-command.png)
+
+Let's talk about tags in Docker: Tags in Docker point to specific versions of the Docker image. (Just like tags in Git point to certain commits in the commit history)
+
+How to inspect Docker images? Use `docker inspect <container name>`, see example below:
+
+![Docker-inspect-image](./Docker-inspect-image.png)
+
+A container can be paused and unpaused in Docker, see example below:
+
+![Docker-pause-and-unpause](./Docker-pause-and-unpause.png)
+
