@@ -129,13 +129,16 @@ We'll be creating a node server application and running it on Docker container.
 ```
 FROM node
 
-WORKDIR /developer/nodejs
+WORKDIR /developer/nodejs/my-server
 
-COPY . my-server/
+COPY . .
 
 RUN npm ci
 
 CMD ["node","index.js"]
 ```
 
-In this DockerFile, we are specifying the work directory as `/developer/nodejs` inside the docker container, if this directory doesn't exist, docker will create this directory inside the container. We are copying all the contents from present working directory in host machine to my-server directory inside the WORK directory (so the complete path where the contents would be copied is `/developer/nodejs/myserver`). We are then specifying the command to do a `clean install` using npm (Clean install doesn't use node modules cache, compared to the `npm install`). Thereafter we are running `node index.js` in order to start the server. 
+In this DockerFile, we are specifying the work directory as `/developer/nodejs/my-server` inside the docker container, if this directory doesn't exist, docker will create this directory inside the container. We are copying all the contents from present working directory in host machine to the `my-server` directory in the container. We are then specifying the command to do a `clean install` using npm (Clean install doesn't use node modules cache, compared to the `npm install`). Thereafter we are running `node index.js` in order to start the server. 
+
+Let's now build this docker image and see the results:
+

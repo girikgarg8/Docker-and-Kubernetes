@@ -2,7 +2,7 @@ FROM node
 
 WORKDIR /developer/nodejs
 
-COPY . my-server/
+COPY . .
 
 RUN npm ci
 
