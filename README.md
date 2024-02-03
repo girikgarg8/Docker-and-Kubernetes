@@ -166,4 +166,7 @@ So, in order to solve these problems, we have the following solutions:
 
 **Let's now try to dockerize a project from Github and setup the environment variables**
 
-For the purpose of this demonstration, I will be cloning this repository [Github Link](https://github.com/girikgarg8/Dockerizing-Node-Project) in my Docker container.
+For the purpose of this demonstration, we will be cloning this repository [Github Link](https://github.com/girikgarg8/Dockerizing-Node-Project) in the Docker container. The dockerfile can be found in the [Node_From_Github](./Node_From_Github/) directory.
+
+This is the output of building the Docker image from the Dockerfile and running the Docker container:
+
