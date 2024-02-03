@@ -1,4 +1,4 @@
-Introduction to containers
+## Introduction to containers ##
 
 Let's go back a little bit back in time to understand.
 
@@ -38,7 +38,7 @@ Let's execute `docker pull node`. This command is going to pull the Docker image
 
 Friendly advice: If there are lots of images on the system, periodically clear them because they take up a lot of space.
 
-In order to execute the image in the container, we use `docker run <image name>`. 
+In order to execute the image in the container, we use `docker run <image name>` (similar to how we run a program)
 
 We'll also use two options: `-it` in order to start the container in interactive mode (which allows the user on the host OS to interact with the container). If this flag is not used, the container will start and exit, because it doesn't have any command to execute. By using the interactive mode, we are asking the container to wait for the user input.
 
@@ -50,6 +50,10 @@ Output of running `docker run --it --rm node` :
 
 ![Docker-run-command](./Docker-run-command.png)
 
+We can execeute a command in docker interactive mode by specifying it, like as an example
+
+![Docker Run Interactive Mode](./Docker-run-interactive-mode.png)
+
 How Docker Desktop shows the running containers:
 
 ![Docker-Desktop-running-containers](./Docker-Desktop-showing-running-containers.png)
@@ -60,8 +64,18 @@ How to list the running docker containers: Use `docker ps` (Similar to how `ps` 
 
 Docker PS lists the container ID, image which the container is running, a unique name of the container, creation time of the container etc.
 
-In order to kill the container, we use `docker kill <container ID>`. Here's the demonstration of the same:
+In order to kill the container, we use `docker kill <container ID>` (similar to how we kill a process in OS). Here's the demonstration of the same:
 
 ![Docker kill command](./Docker-kill-command.png)
 
+Dangling images in Docker are the images which do not have a tag associated to them. This can happend if a new build of a image is built, so the previous builds become dangling in nature.
 
+See this hyperlink for more information : [Dangling image in Docker](https://www.howtogeek.com/devops/what-are-dangling-docker-images/)
+
+If we want to run a docker image in the background as a daemon process, we can use the `detach` flag.  If at a later stage, we want to run the docker container as a foreground process, we can do so by using the `attach` flag. See the screenshot below:
+
+![Docker-detach-and-attach-command](./Docker-detach-and-attach-command.png)
+
+We can give a custom name to the container (instead of using the default one, which is assigned by Docker), by using the `--name` flag. As an example:
+
+![Docker name flag](./Docker-name-flag.png)
