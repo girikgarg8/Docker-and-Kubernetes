@@ -177,3 +177,7 @@ Few important point to note:
 1. In the `publish` option, the first port is that of the host machine, and the second port is that of the container. Example: `docker run --publish 3001:3000 app-from-github` is going to expose the port 3000 of the container to port 3001 of the host machine.
 
 2. Difference between RUN and CMD : RUN is used to execute commands during the build process of a Docker image, while CMD is used to specify the default command to run when a Docker container is started from the image.
+
+How to configure the environment variables in the docker container?
+
+We can specify the environment variables by speciying the `ENV` in the Dockerfile.
