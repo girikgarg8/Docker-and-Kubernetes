@@ -12,6 +12,6 @@ RUN npm ci
 
 CMD ["npm","start"]
 
-## Steps to build this dockerfile and use the Node Project on the system
+## Steps to build this dockerfile and use the Node Project:
 ## docker build -t app-from-github .
 ## docker run -it --rm --publish 3001:3000 app-from-github
