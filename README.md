@@ -183,3 +183,9 @@ How to configure the environment variables in the docker container?
 We can specify the environment variables by specifying the `ENV` in the Dockerfile, and the required environment variables will appear in the Docker container, see the screenshot below:
 
 ![Docker-environment-variable.png](./Docker-environment-variable.png)
+
+Let's now see how we can dockerize a Flask project: Explore this Github Repository: [Link to Flask App Repository](https://github.com/girikgarg8/Dockerizing-Flask-App)
+
+![Docker-container-running-python-app](./Docker-container-running-python-app.png)
+
+![Docker-Python-app-curl](./Docker-python-app-curl.png)
