@@ -180,4 +180,6 @@ Few important point to note:
 
 How to configure the environment variables in the docker container?
 
-We can specify the environment variables by speciying the `ENV` in the Dockerfile.
+We can specify the environment variables by specifying the `ENV` in the Dockerfile, and the required environment variables will appear in the Docker container, see the screenshot below:
+
+![Docker-environment-variable.png](./Docker-environment-variable.png)
