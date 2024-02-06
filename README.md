@@ -189,3 +189,15 @@ Let's now see how we can dockerize a Flask project: Explore this Github Reposito
 ![Docker-container-running-python-app](./Docker-container-running-python-app.png)
 
 ![Docker-Python-app-curl](./Docker-python-app-curl.png)
+
+Let's learn about `EXPOSE` in Docker:
+
+`EXPOSE` in Docker is similar to `publish` option, and allows user to specify in the Dockerfile, which port of the container they want to expose. However, the mapping of the container's port to the host OS's container is random, so we don't get to choose the host OS's port (unlike the publish option). We need to specify the `-P` flag, something like the command `docker run -it --rm -P app-from-github .`
+
+See the screenshots below:
+
+![Docker-expose](./Docker-expose.png)
+
+As we can see from the screenshot above, the port 3000 of the container is mapped to the port 55000 of the host OS. So, the node application running on port 3000 of container is available on port 55000 of the host machine.
+
+![Docker-expose-port-on-host-machine](./Docker-expose-port-on-host-machine.png)
