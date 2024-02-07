@@ -204,7 +204,7 @@ As we can see from the screenshot above, the port 3000 of the container is mappe
 
 In order to remove all the images,containers etc, use `docker system prune -a`.
 
-Let's understand the usecase of **bind mount** in Docker:
+## Let's understand the usecase of bind mount in Docker: ##
 
 Supppose that I make any change in the local project on my host machine, those changes won't reflect in the docker container's project. But if I have a usecase where we want that any changes made on the local machine should reflect in the Docker container as well, then we can use the bind mount. Bind mount enables a two way mapping between the Docker container and the host machine, meaning that any changes made in the host machine will reflect in the Docker container and vice versa.
 
