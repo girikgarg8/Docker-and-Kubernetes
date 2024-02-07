@@ -201,3 +201,29 @@ See the screenshots below:
 As we can see from the screenshot above, the port 3000 of the container is mapped to the port 55000 of the host OS. So, the node application running on port 3000 of container is available on port 55000 of the host machine.
 
 ![Docker-expose-port-on-host-machine](./Docker-expose-port-on-host-machine.png)
+
+In order to remove all the images,containers etc, use `docker system prune -a`.
+
+Let's understand the usecase of **bind mount** in Docker:
+
+Supppose that I make any change in the local project on my host machine, those changes won't reflect in the docker container's project. But if I have a usecase where we want that any changes made on the local machine should reflect in the Docker container as well, then we can use the bind mount. Bind mount enables a two way mapping between the Docker container and the host machine, meaning that any changes made in the host machine will reflect in the Docker container and vice versa.
+
+In order to use the bind mount, we have to specify a mapping between the directory in the host machine and the directory in the Docker container using the `-v` option. As an example, see the syntax: `docker run -it --init -p 3002:3000 -v "$(pwd)":/developer/nodejs/node-bind-mount-project app-bind-mount-node:latest`
+
+See the screenshots below:
+
+Node Server restarting in the docker container :
+
+![Docker-bind-mount-node-server-restart.png](./Docker-bind-mount-node-server-restart.png)
+
+Inspecting the contents of the node project in the Docker container, where we can see the changes made on the host machine :
+
+![Docker-bind-mount-updated-content-of-docker-container.png](./Docker-bind-mount-updated-content-of-docker-container.png)
+
+Sending a curl to the new endpoint in the Docker container :
+
+![Docker-bound-mint-curl](./Docker-bind-mount-curl.png)
+
+Changes from the Docker container reflecting in the host machine :
+
+![Docker-bind-mount-change-in-docker-container.png](./Docker-bind-mount-change-in-docker-container.png)
