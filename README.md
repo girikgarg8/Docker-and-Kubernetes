@@ -227,3 +227,41 @@ Sending a curl to the new endpoint in the Docker container :
 Changes from the Docker container reflecting in the host machine :
 
 ![Docker-bind-mount-change-in-docker-container.png](./Docker-bind-mount-change-in-docker-container.png)
+
+## Let's understand about Docker volume ##
+
+Docker volumes are used to persist the data of the Docker container, even after the container is shut down or exited. This can also be used to share the data of one container with other containers.
+
+Let's  understand a usecase when data persistance can be necessary: Consider the Node Project for [API Gateway](./API-Gateway/) , which is an API Gateway cloned from this [Github Repository](https://github.com/girikgarg8/Flights-API-Gateway). For the sake of this demonstration, we also installed the node modules in the host machine and copied it as well to the docker container.
+
+We get an error saying that `invalid ELF Header`, and upon researching, we find that it's due to "This happens when you build on one architecture and then attempt to use the same built addon on a different architecture" [Link to Stackoverflow Link](https://stackoverflow.com/questions/29994411/invalid-elf-header-when-using-the-nodejs-ref-module-on-aws-lambda)
+
+![Docker-copy-node-modules-error](./Docker-copy-node-modules-error.png)
+
+So, the problem is not to copy the node modules from the host machine to the docker container. Here are some possible solutions:
+
+1. Don't have node modules in the host container, as a result it won't get copied to the Docker container. This can still create problems because the dependency versions specified in the `package.json` may still not be compatiable with the container OS. See the image below:
+
+![Docker-container-not-starting-even-after-deleting-node-modules.png](./Docker-container-not-starting-even-after-deleting-node-modules.png)
+
+2. Use a dockerignore file (similar to gitignore), and specify node-modules from host machine not to be used while building the Docker image
+
+3. We can have a storage for the node modules to be used in the Docker container (like an Ubuntu container, for example). As all the people in the team are going to use the project in the Docker container, it doesn't matter what host OS they have. By using this solution, we can avoid package conflicts.
+
+So, we are going to create a volume to store the API Gateway node modules, using the command `docker volume create <volume name>`.
+
+Now, while running the Docker container, we will specify what directory of the docker container we want to store in the docker volume using the `-v <docker volume name>: <path to docker container directory>`. For example, consider `docker run -it --init -p 3001:3000 -v "$(pwd)":/developer/nodejs/api-gateway -v api-gateway-node-modules:/developer/nodejs/api-gateway/node_modules api-gateway:latest`. Let's do a step by step breakdown of this command:
+
+Using `-v "$(pwd)":/developer/nodejs/api-gateway` we are specifying a bind mount between the present working directory of the host machine and the directory `/developer/nodejs/api-gateway` of the Docker container. Using `-v api-gateway-node-modules:/developer/nodejs/api-gateway/node_modules`, we are mapping the `api-gateway-node-modules` Docker volume to the directory `/developer/nodejs/api-gateway/node_modules` of the Docker container. The contents from this directory will be stored in the Docker volume.
+
+Q. We use the `-v option` for both the bind mount as well as the volume mount, how does Docker distinguish between both of them?
+
+A. Docker distinguishes between bind mounts and volume mounts based on the format of the mount specification.
+For a bind mount, the mount specification must follow the format of "source:destination" where the source is a host directory or a file and the destination is a path inside the container.
+
+For a volume mount, the mount specification must follow the format of "volume-name:destination" where the volume-name is the name of the volume being created and the destination is a path inside the container. 
+
+We can see that the API-Gateway app starts up successfully on using volume mount:
+
+![Docker-volume-mount-start-up-successfully](./Docker-volume-mount-start-up-successfully.png)
+
