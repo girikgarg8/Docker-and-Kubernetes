@@ -265,3 +265,28 @@ We can see that the API-Gateway app starts up successfully on using volume mount
 
 ![Docker-volume-mount-start-up-successfully](./Docker-volume-mount-start-up-successfully.png)
 
+Let's inspect the contents of the Docker volume:
+
+![Docker-inspect-volume](./Docker-inspect-volume.png)
+
+## Let's understand about communication between different microservices on Docker##
+
+Suppose, we have a use case where we want to facilitate the communication between different Docker containers. For example, it can be differnt microservices running on different Docker containers, which might want to communicate with each other. As such, Docker containers are isolated environments, and we can't facilitate the inter container communication.
+
+See the image below, if we try to facilitate inter container communication without creating a Docker container, they won't be able to communicate with each other.
+
+API Gateway running in Docker container:
+
+![API-Gateway-running-in-Docker-container](./API-Gateway-running-in-Docker-container.png)
+
+Flights Search Service running in Docker container:
+
+![Search-Service-running-in-docker-container](./Search-Service-running-in-docker-container.png)
+
+Unable to make a request to Search Service by leveraging the reverse proxy capabilities of API Gateway, because each container in Docker is isolated from each other. 
+
+![API-Gateway-not-able-to-reverse-proxy-request](./API-Gateway-not-able-to-reverse-proxy-request.png)
+
+So, in order to facilitate the inter-container communication,  we need to setup a network bridge. All inter-container communications will be routed through this network bridge, as shown in the diagram below:
+
+![Docker-network-bridge](./Docker-network-bridge.png)

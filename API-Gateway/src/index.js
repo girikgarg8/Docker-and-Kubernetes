@@ -32,5 +32,5 @@ app.use('/flightsBookingService', createProxyMiddleware({
 }));
 
 app.listen(ServerConfig.PORT, () => {
-    console.log(`Successfully started the server on port: ${ServerConfig.PORT}`);
+    console.log(`Successfully started the Flights API Gateway on port: ${ServerConfig.PORT}`);
 });
