@@ -269,7 +269,7 @@ Let's inspect the contents of the Docker volume:
 
 ![Docker-inspect-volume](./Docker-inspect-volume.png)
 
-## Let's understand about communication between different microservices on Docker##
+## Let's understand about communication between different microservices on Docker ##
 
 Suppose, we have a use case where we want to facilitate the communication between different Docker containers. For example, it can be differnt microservices running on different Docker containers, which might want to communicate with each other. As such, Docker containers are isolated environments, and we can't facilitate the inter container communication.
 
