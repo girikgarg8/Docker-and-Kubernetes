@@ -290,3 +290,19 @@ Unable to make a request to Search Service by leveraging the reverse proxy capab
 So, in order to facilitate the inter-container communication,  we need to setup a network bridge. All inter-container communications will be routed through this network bridge, as shown in the diagram below:
 
 ![Docker-network-bridge](./Docker-network-bridge.png)
+
+In order to create a new network, we use `docker network create <network name>`. Then, in order to see the existing networks, use `docker network ls`. See the image below:
+
+![Docker-network-create-and-ls](./Docker-network-create-and-ls.png)
+
+We can see that there's a default 'bridge' network, which is created by Docker. It's recommended not to use this default network, instead create your own network.
+
+In order to create the network, we should give each container some meaningful name, so that it's easy to identify in the network. We can use the `--name` flag for this.
+
+In order to add a container to a particular network, use the `docker network connect` command. As an example, consider `docker network connect microservice-network 231b9a2a8486`. 
+
+In order to confirm what containers are part of the network, use deocker `docker network inspect <network name>`. Example is as follows:
+
+![Docker-network-inspect](./Docker-network-inspect.png)
+
+We can both the search-service and the api-gateway containers in the network, both of these containers have also been assigned IPv4 and MAC address.
