@@ -313,4 +313,4 @@ We can both the search-service and the api-gateway containers in the network, bo
 
 The docker container API Gateway is able to communicate with Search Service, after both of them are attached to the network, see below:
 
-![Docker-inter-container-communication-not-possible-without-network](./Docker-inter-container-communication-not-possible-without-network.png)
+![Docker-inter-container-communication-network.png](./Docker-inter-container-communication-network.png)
