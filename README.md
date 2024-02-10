@@ -287,6 +287,10 @@ Unable to make a request to Search Service by leveraging the reverse proxy capab
 
 ![API-Gateway-not-able-to-reverse-proxy-request](./API-Gateway-not-able-to-reverse-proxy-request.png)
 
+Docker inter container communication not possible without Docker network:
+
+![Docker-inter-container-communication-not-possible-without-network](./Docker-inter-container-communication-not-possible-without-network.png)
+
 So, in order to facilitate the inter-container communication,  we need to setup a network bridge. All inter-container communications will be routed through this network bridge, as shown in the diagram below:
 
 ![Docker-network-bridge](./Docker-network-bridge.png)
@@ -306,3 +310,7 @@ In order to confirm what containers are part of the network, use deocker `docker
 ![Docker-network-inspect](./Docker-network-inspect.png)
 
 We can both the search-service and the api-gateway containers in the network, both of these containers have also been assigned IPv4 and MAC address.
+
+The docker container API Gateway is able to communicate with Search Service, after both of them are attached to the network, see below:
+
+![Docker-inter-container-communication-not-possible-without-network](./Docker-inter-container-communication-not-possible-without-network.png)

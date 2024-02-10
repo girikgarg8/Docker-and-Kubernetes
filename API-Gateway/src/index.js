@@ -9,7 +9,7 @@ const rateLimit = require('express-rate-limit');
 
 const limiter = rateLimit({
     windowMs: 2 * 60 * 1000,
-    max: 3  //in every 2 minutes window, maximum of 3 requests can be sent from an IP
+    max: 10 //in every 2 minutes window, maximum of 10 requests can be sent from an IP
 })
 app.use(express.json());
 

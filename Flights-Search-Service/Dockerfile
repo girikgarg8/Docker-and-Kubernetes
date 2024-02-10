@@ -6,7 +6,7 @@ COPY . .
 
 ENV PORT=3010
 
-RUN npm ci
+RUN npm install
 
 CMD ["npm","run","dev"]
 
@@ -15,5 +15,5 @@ CMD ["npm","run","dev"]
 # docker build -t search-service .
 # docker volume create search-service-node-modules
 # docker network create microservice-network
-# docker run -it --init --name search-service -p 3002:3010 -v "$(pwd)":/developer/nodejs/search-service -v search-service-node-modules:/developer/nodejs/search-service/node_modules search-service:latest
+# docker run -it --init --name search-service -p 3001:3010 -v "$(pwd)":/developer/nodejs/search-service -v search-service-node-modules:/developer/nodejs/search-service/node_modules search-service:latest
 # docker network connect microservice-network <container ID>
