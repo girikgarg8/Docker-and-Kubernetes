@@ -364,3 +364,19 @@ In order to stop and remove all the running containers and networks, use `docker
 Yes, a docker container can communicate with external APIs without any problems. As an example, let's consume the Fake Stores API in the API Gateway. See the screenshot below:
 
 ![Docker-container-interaction-with-external-API](./Docker-container-interaction-with-external-API.png)
+
+## Let's see how we can push image to Dockerhub ##
+
+For this tutorial, we'll try to push `app-from-github` image to Dockerhub from [here](./Node_From_Github/Dockerfile)
+
+The steps are:
+
+```
+1. Use `docker login` and enter the credentials.
+
+2. Add a tag to the image in the form of <username>/<image name> (manadatory step for pushing to Dockerhub). This can be done be using `docker tag <existing image name> <username>/<new image name>`
+
+3. Push the image using `docker push <image>`
+```
+
+As an example, this is the image I pushed to Dockerhub. [Dockerhub Link](https://hub.docker.com/r/girikgarg/app-from-github)
