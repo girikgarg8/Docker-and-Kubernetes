@@ -356,3 +356,11 @@ In order to run the `docker-compose.yml`, we use `docker-compose up -d`, where `
 ![Docker-containers-booted-up-from-docker-compose](./Docker-containers-booted-up-from-docker-compose.png)
 
 ![Docker-compose-containers-curl](./Docker-compose-containers-curl.png)
+
+In order to stop and remove all the running containers and networks, use `docker compose down`.
+
+**Can a docker container communicate with the outside world (like APIs on the Internet) ?**
+
+Yes, a docker container can communicate with external APIs without any problems. As an example, let's consume the Fake Stores API in the API Gateway. See the screenshot below:
+
+![Docker-container-interaction-with-external-API](./Docker-container-interaction-with-external-API.png)
