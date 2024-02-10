@@ -277,7 +277,7 @@ See the image below, if we try to facilitate inter container communication witho
 
 API Gateway running in Docker container:
 
-![API-Gateway-running-in-Docker-container](./API-Gateway-running-in-Docker-container.png)
+![API-Gateway-running-in-Docker-container](./API-Gateway-running-in-Docker-container.png) #TODO
 
 Flights Search Service running in Docker container:
 
