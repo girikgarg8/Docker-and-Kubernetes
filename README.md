@@ -277,7 +277,7 @@ See the image below, if we try to facilitate inter container communication witho
 
 API Gateway running in Docker container:
 
-![API-Gateway-running-in-Docker-container](./API-Gateway-running-in-Docker-container.png) #TODO
+![API-Gateway-running-in-Docker-container](./API-Gateway-running-in-Docker-container.png)
 
 Flights Search Service running in Docker container:
 
@@ -314,3 +314,45 @@ We can both the search-service and the api-gateway containers in the network, bo
 The docker container API Gateway is able to communicate with Search Service, after both of them are attached to the network, see below:
 
 ![Docker-inter-container-communication-network.png](./Docker-inter-container-communication-network.png)
+
+## Let's explore about Docker Compose ##
+
+**What is Docker Compose and what is it used for?**
+
+Docker compose is a software application allows to run and manage multiple Docker containers at the same time. Till now, whenever we had to run multiple containers, we used to separately run the Docker containers, and it was difficult to manage them. Docker Compose provides a way to manage the different Docker containers efficiently.
+
+In order to use Docker compose, we need to write a `docker-compose.yml` file specifying details of each Docker container. See [this](./docker-compose.yml) for more details.
+
+Let's do a breakdown of the `docker-compose.yml` file, and understand what it means:
+
+```
+version: "3"
+networks:
+  micro-net:
+    driver: bridge
+volumes:
+  api-gateway-node-modules:
+  search-service-node-modules:
+services: 
+  api_gateway:
+    build: ./API-Gateway
+    ports:
+      - "3000:3000"
+    networks: 
+      - micro-net
+    volumes:
+      - ./API-Gateway:/developer/nodejs/api-gateway
+      - api-gateway-node-modules:/developer/nodejs/api-gateway/node_modules
+```
+
+In this `docker-compose.yml`, the top-level version property is defined by the specification for backward compatibility but is only informative. Thereafter, we are creating a new network called `micro-net` with bridge driver. After that, we are creating two Docker volumes `api-gateway-node-modules` and `search-service-node-modules`. After that, we are specifiying the different services, as an example, we have the `api_gateway` service which which builds from `./API-Gateway/Dockerfile`, the port mapping (host port:container port) is "3000:3000", we are adding the api_gateway container to the network `micro-net`, and thereafter specifying the bind mount and the volume mount.
+
+In order to run the `docker-compose.yml`, we use `docker-compose up -d`, where `-d` specifies that the containers should be booted in detached mode. See the screenshots below:
+
+![Docker-compose-building-container](./Docker-compose-building-container.png)
+
+![Docker-compose-created-volumes-and-containers](./Docker-compose-created-volumes-and-containers.png)
+
+![Docker-containers-booted-up-from-docker-compose](./Docker-containers-booted-up-from-docker-compose.png)
+
+![Docker-compose-containers-curl](./Docker-compose-containers-curl.png)
