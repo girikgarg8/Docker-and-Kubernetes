@@ -380,3 +380,59 @@ The steps are:
 ```
 
 As an example, this is the image I pushed to Dockerhub. [Dockerhub Link](https://hub.docker.com/r/girikgarg/app-from-github)
+
+## Let's talk about Kubernetes ##
+
+Kubernetes is a Google technology, which was internally used at Google, and was later open-sourced to cloud platforms. Kubernetes is useful when we have problems at large scale, similar to the scale of Google. Kubernetes is a container orchestrator, which means that it helps to group and manage multiple containers at the same time. As an example, if we have some containers running from an image, and want to scale up/scale down the number of running containers, Kubernetes can help us with that. Kubernetes helps us manage complex cluster of containers. Fun fact: Kubernetes is also known as K8s.
+
+Let's understand some terminologies about Kubernetes:
+
+1. Master: It is the main server which acts as the brain of the Kubernetes cluster.
+
+2. Nodes: These are the workers which actually run the containers. 
+
+3. Pods: It is the smallest deployable unit in a Kubernetes cluster. The containers run on pods. Usually, tightly coupled microservices are hosted together on a single pod. (As an example, user service and authentication service are tightly coupled, so they can be present as two different containers on the same pod.) The containers within a single pod share the same network.
+
+Putting it altogether, there's one master node in the entire cluster. This master can manage multiple nodes. Each node has multiple pods. Each pod has multiple containers running in it. Expressing pictorially, see the figure below:
+
+![Kubernetes_Architecture](./Kubernetes_Architecture.svg)
+
+There are different cloud platforms where we can try Kubernetes, but for this tutorial, we will try Kubernetes by locally deploying on Docker Desktop. 
+
+**Let's talk about kubectl and minkube**
+
+KubeCtl (short form of Kubernetes Coontrol) is a command line tool which allows us to interact with Kubernetes. 
+
+Minikube provides a lightweight environment to run Kubernetes on our local machine. Because as such Kubernetes cluster is something that requires high configuration cloud instances.
+
+We'll also be installing `Kompose`. Kompose is a tool to help users who are familiar with docker-compose move to Kubernetes. Kompose takes a Compose Specification file and translates it into Kubernetes resources (converting `docker-compose.yml` into Kubernetes compatiable `YAML`).
+
+Follow the steps given here: [Kompose Getting Started](https://kompose.io/getting-started/)
+
+We can use `docker-compose push` to push images for services to their respective registry/repository. Pushing the images to Dockerhub is a mandatory step, as it's required in the `docker-compose.yml` which will be parsed by Kompose.
+
+`minikube start` is going to start the Kubernetes cluster on the local machine.
+
+We are preparing a separate `docker-compose-kubernetes.yml` which has slight modifications from `docker-compose.yml`, as an example we will not specify the bind mount and the volume mount (because we are not dev testing). Also we'll specify the image name from Dockerhub for each service, as these images will be pulled from Dockerhub. 
+
+On running `kompose convert -f <path to docker compose YML file>`, Kompose creates several `Kompose Deployment YAML files` for each of the different services within the `docker-compose.yml`. See the screenshot below:
+
+![Kompose_convert](Kompose_convert.png)
+
+Then we use `kubectl apply -f <path to Kubernetes YAML files(s)> ` in order to deploy the services on the pods.
+
+Then use `kubectl get pods` to see the status of the containers. Allow sometime while all the containers are being created. See the screenshot below:
+
+![Kubectl-get-pods](./Kubectl-get-pods.png)
+
+In order to get the logs of a pod, use `kubectl logs <Pod name>`. As an example, see the screenshot below :
+
+![Kubectl-logs](./Kubectl-logs.png)
+
+Run `minikube service <service name>` in order to access the service, once it is deployed. See screenshots below: 
+
+![Minikube-python-service](Minikube-python-service.png)
+
+![Minikube-python-service-curl](Minikube-python-service-curl.png)
+
+Kubernetes can also be explored on cloud platforms, apart from setting up minikube on local machine. But these cloud platforms might charge fees, check before signing up.

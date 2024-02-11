@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f docker-compose-kubernetes.yml
+    kompose.service.type: LoadBalancer
+    kompose.version: 1.32.0 (HEAD)
+  labels:
+    io.kompose.service: api-gateway
+  name: api-gateway
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: api-gateway
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -f docker-compose-kubernetes.yml
+        kompose.service.type: LoadBalancer
+        kompose.version: 1.32.0 (HEAD)
+      labels:
+        io.kompose.network/learningdocker-micro-net: "true"
+        io.kompose.service: api-gateway
+    spec:
+      containers:
+        - image: girikgarg/learningdocker-api_gateway
+          name: api-gateway
+          ports:
+            - containerPort: 3000
+              hostPort: 3000
+              protocol: TCP
+      restartPolicy: Always
