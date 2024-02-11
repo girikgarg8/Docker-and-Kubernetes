@@ -383,7 +383,7 @@ As an example, this is the image I pushed to Dockerhub. [Dockerhub Link](https:/
 
 ## Let's talk about Kubernetes ##
 
-Kubernetes is a Google technology, which was internally used at Google, and was later open-sourced to cloud platforms. Kubernetes is useful when we have problems at large scale, similar to the scale of Google. Kubernetes is a container orchestrator, which means that it helps to group and manage multiple containers at the same time. As an example, if we have some containers running from an image, and want to scale up/scale down the number of running containers, Kubernetes can help us with that. Kubernetes helps us manage complex cluster of containers. Fun fact: Kubernetes is also known as K8s.
+Kubernetes is a Google technology, which was internally used at Google, and was later open-sourced to cloud platforms. Kubernetes is useful when we have problems at large scale, similar to the scale of Google. Kubernetes is a container orchestrator, which means that it helps to group and manage multiple containers at the same time. As an example, if we have some containers running from an image, and want to scale up/scale down the number of running containers, Kubernetes can help us with that. Kubernetes helps us manage complex cluster of containers. Fun fact: Kubernetes is also known as K8s because there are 8 number of letters between the “K” and the “s”
 
 Let's understand some terminologies about Kubernetes:
 
