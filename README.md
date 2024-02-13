@@ -385,6 +385,12 @@ As an example, this is the image I pushed to Dockerhub. [Dockerhub Link](https:/
 
 Kubernetes is a Google technology, which was internally used at Google, and was later open-sourced to cloud platforms. Kubernetes is useful when we have problems at large scale, similar to the scale of Google. Kubernetes is a container orchestrator, which means that it helps to group and manage multiple containers at the same time. As an example, if we have some containers running from an image, and want to scale up/scale down the number of running containers, Kubernetes can help us with that. Kubernetes helps us manage complex cluster of containers. Fun fact: Kubernetes is also known as K8s because there are 8 number of letters between the “K” and the “s”
 
+**Difference between Docker Compose and Kubernetes**
+
+Docker Compose is designed to run containers on a single host system. In contrast, Kubernetes can manage containers deployed across multiple nodes(computers).
+
+![Docker-compose-vs-Kubernetes](./Docker-compose-vs-Kubernetes.png)
+
 Let's understand some terminologies about Kubernetes:
 
 1. Master: It is the main server which acts as the brain of the Kubernetes cluster.
