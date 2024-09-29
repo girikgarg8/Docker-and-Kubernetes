@@ -4,9 +4,75 @@ Let's go back a little bit back in time to understand.
 
 In earlier days, all applications used to be hosted on dedicated machines. As an example, schools and colleges used to host their applications on dedicated machines. The problem with this approach is that it is not scalable, so if we need to scale up or scale down the application, it is going to be a problem.
 
-So cloud providers like AWS, Azure and GCP came into picture. They offer machines to rent which are hosted in their data centres. But there's still a problem, that different clients may be using the resources on the same machine, and we need to ensure that there's isolation between them so that the sensitive information from one container is not leaked to other guy. Also, we need to protect the cloud instance from a single point of failure and SQL injection attacks etc. 
+Then came the concept of virtualization. Virtualization, in the simplest words, is the process in which a system singular resource like RAM, CPU, Disk or Networking can be represented as multiple resources.
 
-This is where containers help us. Containers are isolated from each other, and do not allow inter container communication, unless we configure them to have inter container communication. 
+There are two virtualization technologies: Virtual Machines and Containers. The key difference between them is that VMs virtualize both hardware and OS layers (meaning every VM is assigned a logical partitioning of hardware and OS resources), while containers virtualize only software layers (meaning every container has logical partitioning for OS resources, but the hardware resources are the same as the host machine and are shared by all the containers). 
+
+Remember, before booting up an Ubuntu VM we used to assign RAM, CPU cores etc, right? That's because VMs have both OS and hardware virtualization. On the other hand, while spinning Docker containers, we never specified the hardware details, because containers only have software virtualization.
+
+[Reference link](https://www.atlassian.com/microservices/cloud-computing/containers-vs-vms)
+
+Let's understand the architecture of both the virtualization technologies:
+
+![Virtualization-technologies](./Virtualization-technologies.png)
+
+At the bottom, we have host hardware which includes the host hardware resources like CPU, RAM etc.
+
+On top of it, we have the host operating system. Remember, the operating system acts as an interface between the user and hardware, right?
+
+The next layer in case of VM is the hypervisor. Hypervisor is a layer that pools computing resources—like processing, memory and reallocates them among virtual machines (VMs). [Reference Link](https://www.redhat.com/en/topics/virtualization/what-is-a-hypervisor)
+
+Example of HyperVisor: Hyper-V which is installed on Windows
+
+In the case of a container, the layer is container engine. This layer is responsible for OS virtualization and provides the resources for the containers. [IBM Reference Link](https://www.ibm.com/topics/containerization#:~:text=Also%20referred%20to%20as%20a,the%20resources%20for%20containerized%20applications.) , [Article Link](https://www.naukri.com/code360/library/os-virtualization-in-cloud-computing)
+
+Examples of container engines include Docker, Podman etc. Any of these container engines can run the containers. Many times, we interchangably use "Docker container" and "Container" which is actually incorrect, since container is not tied to any container engine. Docker is merely a container engine which can run the container.
+
+On top of the hypervisor/container engine, we have the VMs/containers running.
+
+Containers are lightweight compared to VMs because they onnly have OS level virtualization, compared to VMs which have hardware level virtualization as well.
+
+Let's discuss about cloud providers like AWS, Azure and GCP. They offer machines to rent which are hosted in their data centres. 
+
+It's interesting to note that EC2 instances are nothing but VMs running on a physical host. (Similar to how we can boot up an Ubuntu VM on Windows machine and rent the Ubuntu VM, AWS is booting up an Ubuntu VM on a physical host and renting it to customers). [Reference Link](https://stackoverflow.com/questions/33487309/aws-ec2-instance-is-it-a-single-virtual-image-or-single-physical-machine#:~:text=An%20EC2%20instance%20is%20a,which%20instance%20type%20you%20choose.)
+
+There's an interesting phenomena called the noisy neighbours' problem. Let's understand about it.
+
+As mentioned earlier, EC2 instances are nothing but VMs booted up on a physical host. While it's easy to partition CPU and RAM resources between virtual machines, the disk subsystem is extremely difficult to partition.
+
+In a noisy neighbour scenario, one or more VMs on the physical host do heavy disk operations, resulting in poor performance for other VMs. [Reference Link](https://www.liquidweb.com/blog/why-aws-is-bad-for-small-organizations-and-users/)
+
+What is the solution for noisy neighbours problem? 
+
+AWS provides dedicated instances and hosts, which can be used to avoid noisy neighbours' problem. Let's understand the difference between two:
+
+Dedicated instance instance runs on some hardware. It is not lockdown to you. If you stop/start instance, you can get some other hardware somewhere else. Basically, the hardware is "yours" (you are not sharing it with others) for the time your instance is running. You stop/start it, you may get different physical machine later on (maybe older, maybe newer, maybe its specs will be a bit different), and so on. So your instance is moved around on different physical servers - whichever is not occupied by others at the time.
+
+With Dedicated Host the physical server is basically yours. It does not change, it's always the same physical machine for as long as you are paying. [Reference Link](https://stackoverflow.com/questions/64309679/aws-dedicated-host-vs-dedicated-instance-why-the-first-is-more-expensive-than)
+
+**Why do I need to install Hyper-V on Windows if I wish to run Docker container? Doesn't container only rely on container engine?**
+
+Nice question. The reason is:
+
+1. Support for Docker on Windows is not native, Docker was written to be run on Linux initially. So the requirements for running Docker CE on Windows are:
+
+2. Virtualization must be enabled since docker-ce creates a VM on Hyper-V. Since all hypervisors require hardware virtualization to be enabled, Hyper-V in this matter is not exceptional. The Docker for Windows installer will enable Hyper-V for you, if needed, and restart your machine.
+
+3. For older Windows systems that don’t support hardware virtualization, it’s recommended to use Docker Toolbox which uses Oracle Virtualbox to spin up VMs that will host docker containers instead of Hyper-V.
+
+[Reference Link](https://stackoverflow.com/questions/48251703/if-docker-runs-natively-on-windows-then-why-does-it-need-hyper-v#:~:text=Support%20for%20Docker%20on%20Windows,a%20VM%20on%20Hyper%2DV.)
+
+**Relationship between EC2 and ECS**
+
+- EC2 - is simply a remote (virtual) machine.
+
+- ECS stands for Elastic Container Service - as per basic definition of computer cluster, ECS is basically a logical grouping of EC2 machines/instances. Technically speaking ECS is a mere configuration for an efficient use and management of your EC2 instance(s) resources i.e. storage, memory, CPU, etc.
+
+All you need to do is launch an ECS, and register/add as many EC2 instances to it as you need. You can add/register EC2 instances. During the launch of a new EC2 instance the Agent automatically registers it to the default ECS cluster.
+
+The container agent running on each of the instances (EC2 instances) within an Amazon ECS cluster sends information about the instance's current running tasks and resource utilization to Amazon ECS, and starts and stops tasks whenever it receives a request from Amazon ECS.
+
+[Reference Link](https://stackoverflow.com/questions/40575584/what-is-the-difference-between-amazon-ecs-and-amazon-ec2)
 
 **What is the difference between docker image and container?**
 
@@ -16,13 +82,13 @@ These docker images can be created with the help of Dockerfile. Or we can get so
 
 Docker containers: A container is an actual instance of the environment configured by the image. When we run a docker image, it creates a live and running container. These containers are isolated from each other and act as a light weight Virtual Machine. 
 
-We can understand the difference between the Docker image and Docker container by the analogy of process (Docker container) and program (Docker image), or the analogy between a class (Docker image) and object. (Docker container)
+We can understand the difference between the Docker image and Docker container by the analogy of process (Docker container) and program (Docker image), or the analogy between a class (Docker image) and object (Docker container).
+ 
+**How Docker is useful?**
 
-A big difference between Virtual Machines and containers is that containers share the host OS kernel, hence they are light weight in nature. 
+Docker images are portable in nature, so they can be run in any environment.
 
-**How docker is used in company projects?**
-
-Let's say there are three different people working in a team, and each one of them has different OS on their laptop (say Ubuntu, Windows and Arch). Now if all of them setup the project on their local, it can lead to compatibility issues because the libraries have different versions on different machines. So, as a solution what we can do is, to clone the project in a Ubuntu container. Now, it doesn't matter what the host OS is, all the team members will be able to work on the project without any problems. A good point also is the fact that this container is going to be isolated from the host OS, as well as other containers.
+As an exmaple, let's say there are three people working in a team, and each one of them has different OS on their laptop (say Ubuntu, Windows and Arch). Now if all of them setup the project on their local, it can lead to compatibility issues because the libraries have different versions on different machines. So, as a solution what we can do is, to clone the project in a Ubuntu container. Now, it doesn't matter what the host OS is, all the team members will be able to work on the project without any problems. A good point also is the fact that this container is going to be isolated from the host OS, as well as other containers.
 
 Diagrammatic representation:
 
