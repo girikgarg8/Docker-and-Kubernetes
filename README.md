@@ -136,7 +136,49 @@ In order to kill the container, we use `docker kill <container ID>` (similar to 
 
 Dangling images in Docker are the images which do not have a tag associated to them. This can happend if a new build of a image is built, so the previous builds become dangling in nature.
 
+The concept of dangling image is similar to that of dangling commit in Git, which is a commit which has no ref pointing to it.
+
+Let's understand this pictorially:
+
+![Dangling-docker-image](./Dangling-docker-image.png)
+
 See this hyperlink for more information : [Dangling image in Docker](https://www.howtogeek.com/devops/what-are-dangling-docker-images/)
+
+Unused images, on the other hand, refer to those images for which the docker container is not currently running. Example: if images A,B and C are installed and container for image B is running, then A and C are unused images.
+
+`docker system prune` command is used to remove:
+
+    - all stopped containers
+    - all networks not used by at least one container
+    - all dangling images
+    - unused build cache
+
+## Let's talk about Docker build cache.
+
+The following example shows a small Dockerfile for a program written in C.
+
+```
+FROM ubuntu:latest
+
+RUN apt-get update && apt-get install -y build-essentials
+
+COPY main.c Makefile /src/
+
+WORKDIR /src/
+
+RUN make build
+```
+
+Each instruction in this Dockerfile translates to a layer in your final image. You can think of image layers as a stack, with each layer adding more content on top of the layers that came before it:
+
+![Docker-initial-layer](./Docker-initial-layer.png)
+
+Whenever a layer changes, that layer will need to be re-built. For example, suppose you make a change to your program in the main.c file. After this change, the COPY command will have to run again in order for those changes to appear in the image. In other words, Docker will invalidate the cache for this layer.
+
+If a layer changes, all other layers that come after it are also affected. When the layer with the COPY command gets invalidated, all layers that follow will need to run again, too:
+
+![Docker-layer-after-cache-invalidation](./Docker-layer-after-cache-invalidation.png)
+
 
 If we want to run a docker image in the background as a daemon process, we can use the `detach` flag.  If at a later stage, we want to run the docker container as a foreground process, we can do so by using the `attach` flag. See the screenshot below:
 
@@ -268,7 +310,6 @@ As we can see from the screenshot above, the port 3000 of the container is mappe
 
 ![Docker-expose-port-on-host-machine](./Docker-expose-port-on-host-machine.png)
 
-In order to remove all the images,containers etc, use `docker system prune -a`.
 
 ## Let's understand the usecase of bind mount in Docker: ##
 
