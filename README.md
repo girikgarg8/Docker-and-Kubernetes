@@ -188,7 +188,13 @@ We can give a custom name to the container (instead of using the default one, wh
 
 ![Docker name flag](./Docker-name-flag.png)
 
-If we are using any image (like that of node or python, as an example), it must be running on same base image (like Ubuntu). So, we can use the bash shell anytime while running a container with these images.
+If we are using any image (like that of node or python as an example), it must be running on some base image (like Ubuntu). So, we can use the bash shell anytime while running a container with these images.
+
+We can actually see that the base image of Node and Python is Ubuntu [here](https://github.com/nodejs/devcontainer/blob/f2469c6356e379d170c3b1d4ac49a888b2320082/Dockerfile#L1) and [here](https://github.com/python/mypy/blob/3c09b3241d22e21d7fa160ae444a93c9487a927f/misc/docker/Dockerfile#L1).
+
+Q. What is a Docker base image?
+
+A. All Dockerfiles start from a base image. A base is the image that your image extends.
 
 ![Docker-bash-command](./Docker-bash-command.png)
 
