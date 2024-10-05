@@ -274,7 +274,9 @@ So, in order to solve these problems, we have the following solutions:
 
 ![Docker-publish-option](./Docker-publish-option.png)
 
-2. In order to solve the second problem listed above, we will use the `init` option. This option allows the docker container to receive commands from the host OS. See example below:
+2. In order to solve the second problem listed above, we will use the `init` option. This option allows the docker container to receive commands from the host OS. We can use the –init parameter as an option with the docker run command to start a container as the main process with PID 1. 
+
+See example below:
 
 ![Docker-init](./Docker-init.png)
 
