@@ -1,0 +1,37 @@
+version: "3"
+networks:
+  micro-net:
+    driver: bridge
+volumes:
+  api-gateway-node-modules:
+  search-service-node-modules:
+services: 
+  api-gateway:
+    build: ./API-Gateway
+    image: girikgarg/learningdocker-api_gateway
+    ports:
+      - "3000:3000"
+    networks: 
+      - micro-net
+    labels:
+      kompose.service.type: LoadBalancer
+  python-service:
+    build: ./Python-Project
+    image: girikgarg/learningdocker-python_service 
+    networks: 
+      - micro-net
+    ports: 
+      - "3005:3005"
+    labels:
+      kompose.service.type: LoadBalancer
+  search-service:
+    build: ./Flights-Search-Service
+    image: girikgarg/learningdocker-search_service 
+    networks: 
+      - micro-net
+    ports:
+      - "3001:3010"
+    labels:
+      kompose.service.type: LoadBalancer
+
+# docker-compose up -d runs all containers in detached mode

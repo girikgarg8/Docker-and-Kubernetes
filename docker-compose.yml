@@ -1,0 +1,34 @@
+version: "3"
+networks:
+  micro-net:
+    driver: bridge
+volumes:
+  api-gateway-node-modules:
+  search-service-node-modules:
+services: 
+  api_gateway:
+    build: ./API-Gateway
+    ports:
+      - "3000:3000"
+    networks: 
+      - micro-net
+    volumes:
+      - ./API-Gateway:/developer/nodejs/api-gateway
+      - api-gateway-node-modules:/developer/nodejs/api-gateway/node_modules
+  python_service:
+    build: ./Python-Project
+    networks: 
+      - micro-net
+    ports: 
+      - "3005:3005"
+  search_service:
+    build: ./Flights-Search-Service
+    networks: 
+      - micro-net
+    ports:
+      - "3001:3010"
+    volumes: 
+      - ./Flights-Search-Service:/developer/nodejs/search-service
+      - search-service-node-modules:/developer/nodejs/search-service/node_modules
+
+# docker-compose up -d runs all containers in detached mode
