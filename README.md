@@ -54,11 +54,11 @@ With Dedicated Host the physical server is basically yours. It does not change, 
 
 Nice question. The reason is:
 
-1. Support for Docker on Windows is not native, Docker was written to be run on Linux initially. So the requirements for running Docker CE on Windows are:
+Support for Docker on Windows is not native, Docker was written to be run on Linux initially. So the requirements for running Docker CE on Windows are:
 
-2. Virtualization must be enabled since docker-ce creates a VM on Hyper-V. Since all hypervisors require hardware virtualization to be enabled, Hyper-V in this matter is not exceptional. The Docker for Windows installer will enable Hyper-V for you, if needed, and restart your machine.
+1. Virtualization must be enabled since docker-ce creates a VM on Hyper-V. Since all hypervisors require hardware virtualization to be enabled, Hyper-V in this matter is not exceptional. The Docker for Windows installer will enable Hyper-V for you, if needed, and restart your machine.
 
-3. For older Windows systems that don’t support hardware virtualization, it’s recommended to use Docker Toolbox which uses Oracle Virtualbox to spin up VMs that will host docker containers instead of Hyper-V.
+2. For older Windows systems that don’t support hardware virtualization, it’s recommended to use Docker Toolbox which uses Oracle Virtualbox to spin up VMs that will host docker containers instead of Hyper-V.
 
 [Reference Link](https://stackoverflow.com/questions/48251703/if-docker-runs-natively-on-windows-then-why-does-it-need-hyper-v#:~:text=Support%20for%20Docker%20on%20Windows,a%20VM%20on%20Hyper%2DV.)
 
@@ -333,6 +333,10 @@ Reference: [Docker Documentation](https://docs.docker.com/engine/containers/mult
 ## Let's understand the usecase of bind mount in Docker: ##
 
 Supppose that I make any change in the local project on my host machine, those changes won't reflect in the docker container's project. But if I have a usecase where we want that any changes made on the local machine should reflect in the Docker container as well, then we can use the bind mount. Bind mount enables a two way mapping between the Docker container and the host machine, meaning that any changes made in the host machine will reflect in the Docker container and vice versa.
+
+Why is it called bind mount? 
+
+Because when you use a bind mount, a file or directory on the host machine is mounted into the container. 
 
 In order to use the bind mount, we have to specify a mapping between the directory in the host machine and the directory in the Docker container using the `-v` option. As an example, see the syntax: `docker run -it --init -p 3002:3000 -v "$(pwd)":/developer/nodejs/node-bind-mount-project app-bind-mount-node:latest`
 
