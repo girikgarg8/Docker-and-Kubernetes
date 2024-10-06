@@ -397,6 +397,14 @@ For a bind mount, the mount specification must follow the format of "source:dest
 
 For a volume mount, the mount specification must follow the format of "volume-name:destination" where the volume-name is the name of the volume and the destination is a path inside the container. 
 
+We can even inspect the mountpoint of Docker volume, and see how the volume stores data under the hood.
+
+Please note that some OS like Mac and Windows spin a Linux VM and run Docker on that VM, so additional steps may be necessary in order to access the docker volume. See this [Docker Forum](https://forums.docker.com/t/docker-inspect-volume-points-to-wrong-mount-point/121869/2) for more details. Such steps are however not required, if the Host OS is Linux itself.
+
+![Docker-inspect-volume-mountpoint](./Docker-inspect-volume-mountpoint.png)
+
+![Docker-inspect-volume-mountpoint-Ubuntu](./Docker-inspect-volume-mountpoint-Ubuntu.png)
+
 ## Let's understand about communication between different microservices on Docker ##
 
 Suppose, we have a use case where we want to facilitate the communication between different Docker containers. For example, it can be differnt microservices running on different Docker containers, which might want to communicate with each other. As such, Docker containers are isolated environments, and we can't facilitate the inter container communication.
